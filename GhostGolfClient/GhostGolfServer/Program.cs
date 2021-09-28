@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace GhostGolfClient
+namespace GhostGolfServer
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World! Im a client!");
+            Console.WriteLine("Hello World! Im a server!");
         }
     }
 }
