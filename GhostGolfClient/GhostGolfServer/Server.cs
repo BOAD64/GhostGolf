@@ -2,7 +2,7 @@
 
 namespace GhostGolfServer
 {
-    class Program
+    class Server
     {
         static void Main(string[] args)
         {
