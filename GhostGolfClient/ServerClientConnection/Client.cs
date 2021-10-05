@@ -9,7 +9,7 @@ namespace ServerClientConnection
     public class Client : IDisposable
     {
         private TcpClient client;
-        private Stream stream;
+        private NetworkStream stream;
 
         public Client(TcpClient client)
         {
