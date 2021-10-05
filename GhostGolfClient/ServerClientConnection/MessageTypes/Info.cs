@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ServerClientConnection
 {
-    class Info : Data
+    public class Info : Data
     {
         public int par { get; set; }
         public int highscore { get; set; }

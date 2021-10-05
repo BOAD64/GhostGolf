@@ -5,7 +5,7 @@ using System.Text;
 
 namespace ServerClientConnection
 {
-    class Finish : Data
+    public class Finish : Data
     {
         public int strokes { get; set; }
     }
