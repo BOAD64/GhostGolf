@@ -9,5 +9,6 @@
     <Import_RootNamespace>ServerClientConnection</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Connection.cs" />
   </ItemGroup>
 </Project>

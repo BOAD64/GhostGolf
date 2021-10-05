@@ -3,11 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GhostGolfClient", "GhostGolfClient\GhostGolfClient.csproj", "{D302C8BC-137F-4400-8EC1-2BD64640660C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GhostGolfClient", "GhostGolfClient\GhostGolfClient.csproj", "{D302C8BC-137F-4400-8EC1-2BD64640660C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GhostGolfServer", "GhostGolfServer\GhostGolfServer.csproj", "{8C3FA28A-CE71-4F73-BFF9-B89B219992CC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GhostGolfServer", "GhostGolfServer\GhostGolfServer.csproj", "{8C3FA28A-CE71-4F73-BFF9-B89B219992CC}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ServerClientConnection", "ServerClientConnection\ServerClientConnection.shproj", "{F6F73046-5191-4C46-97D1-DE570A62D6E7}"
 EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		ServerClientConnection\ServerClientConnection.projitems*{f6f73046-5191-4c46-97d1-de570a62d6e7}*SharedItemsImports = 13
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
