@@ -6,5 +6,6 @@ namespace ServerClientConnection.MessageTypes
 {
     class Data
     {
+
     }
 }

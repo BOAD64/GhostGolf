@@ -1,10 +1,12 @@
-﻿using System;
+﻿using ServerClientConnection.MessageTypes;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace ServerClientConnection
 {
-    class Finish
+    class Finish : Data
     {
+        public int strokes { get; set; }
     }
 }
