@@ -15,5 +15,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)MessageTypes\Finish.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MessageTypes\Info.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)MessageTypes\Init.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client.cs" />
   </ItemGroup>
 </Project>
