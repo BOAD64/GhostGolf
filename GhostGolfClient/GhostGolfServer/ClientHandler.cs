@@ -79,11 +79,45 @@ namespace GhostGolfServer
 
             if (data is BallPos)
             {
-                //ToDo send appropriate message
+                message.name = "all";
+                this.server.send(message, this);
             }
             else if (data is Finish)
             {
-                //ToDo send appropriate message
+                string userName = message.name;
+                int strokes = ((Finish)data).strokes;
+
+                FileIO iO = new FileIO();
+
+                iO.UpdatePar(strokes);
+
+                int highscore = iO.GetHighScore(userName);
+
+                if (highscore == 0)
+                {
+                    iO.AddHighscore(userName, strokes);
+                }
+                else if (strokes < highscore)
+                {
+                    if (!iO.TryUpdateHighscore(userName, strokes))
+                    {
+                        //ToDo send error back
+                    }
+                }
+            }
+            else if (data is Info)
+            {
+                string userName = message.name;
+
+                FileIO iO = new FileIO();
+                int par = iO.GetPar();
+                int highscore = iO.GetHighScore(userName);
+                int placement = iO.GetPlacement(userName);
+
+                Connection connection = new Connection() {name = userName,
+                    data = new Info() {par = par, highscore = highscore, placement = placement}};
+
+                this.server.send(connection, this);
             }
         }
     }
