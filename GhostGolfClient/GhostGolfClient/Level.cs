@@ -32,6 +32,8 @@ namespace GhostGolfClient
                 newPos[0] += yDir;
                 this.ball.setPos(newPos);
 
+                //ToDo check for walls to change xDir en yDir.
+
                 double distance = Math.Sqrt(Math.Pow(newPos[0] - holePos[0], 2) + Math.Pow(newPos[1] - holePos[1], 2));
                 if (distance <= radius)
                 {
