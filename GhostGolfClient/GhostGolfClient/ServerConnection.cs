@@ -14,9 +14,9 @@ using System.Threading.Tasks;
 
 namespace GhostGolfClient
 {
-    class ServerConnection
+    public class ServerConnection
     {
-        private string name;
+        public string name;
         private TcpClient client;
         private ServerClientConnection.Client rw;
         private bool active;
@@ -29,18 +29,18 @@ namespace GhostGolfClient
             this.rw = new ServerClientConnection.Client(this.client);
             sentInit();
 
-            this.level = new Level(name);
+            this.level = new Level(name, this);
         }
 
         public void sentInit()
         {
-            Init I = new Init();
-            Connection con = new Connection() { name = this.name, data = I };
+            Init initMessage = new Init();
+            Connection con = new Connection() { name = this.name, data = initMessage };
             Debug.WriteLine(JsonConvert.SerializeObject(con));
             writeMessage(con);
             readMessage();
         }
-
+        
         public async Task Run()
         {
             this.active = true;
@@ -69,7 +69,7 @@ namespace GhostGolfClient
                 bool found = false;
                 foreach (Ball ball in this.level.opponents)
                 {
-                    if (ball.owner == message.name)
+                    if (ball.owner == ((BallPos)data).sender)
                     {
                         ball.setPos(((BallPos)data).position);
                         found = true;

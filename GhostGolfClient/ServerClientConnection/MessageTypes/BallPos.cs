@@ -8,5 +8,6 @@ namespace ServerClientConnection
     public class BallPos : Data
     {
         public float[] position { get; set; }
+        public string sender { get; set; }
     }
 }

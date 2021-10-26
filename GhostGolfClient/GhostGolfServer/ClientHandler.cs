@@ -16,12 +16,13 @@ namespace GhostGolfServer
 
         private Server server;
         private bool active;
+        private FileIO fileIO;
 
         public ClientHandler(TcpClient tcpClient, Server server)
         {
             this.Client = new Client(tcpClient);
             this.server = server;
-
+            this.fileIO = new FileIO();
 
             new Thread(Run).Start();
         }
@@ -46,7 +47,7 @@ namespace GhostGolfServer
             this.Client.Dispose();
         }
 
-        internal void send(Connection message)
+        public void send(Connection message)
         {
             byte[] toSend = Encoding.ASCII.GetBytes(JsonConvert.SerializeObject(message));
             Client.Write(toSend);
@@ -79,15 +80,24 @@ namespace GhostGolfServer
 
             if (data is BallPos)
             {
-                //ToDo send appropriate message
+                message.name = "all";
+                this.server.send(message, this);
             }
             else if (data is Finish)
             {
-                //ToDo send appropriate message
+                this.fileIO.UpdatePar(((Finish)data).strokes);
+                if (!this.fileIO.TryUpdateHighscore(this.Name, ((Finish)data).strokes))
+                {
+                    this.fileIO.AddHighscore(this.Name, ((Finish)data).strokes);
+                }
             }
             else if (data is Info)
             {
-                //ToDo send appropriate message
+                Info info = new Info{par = this.fileIO.GetPar(), placement = this.fileIO.GetPlacement(this.Name),
+                    highscore = this.fileIO.GetHighScore(this.Name)};
+                message.data = info;
+
+                this.server.send(message, this);
             }
         }
     }
