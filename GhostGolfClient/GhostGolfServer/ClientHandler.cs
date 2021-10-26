@@ -54,9 +54,9 @@ namespace GhostGolfServer
 
         private async void Run()
         {
-            this.Name = await getName();
-
             this.active = true;
+            this.Name = await getName();
+            
             while (active)
             {
                 try
@@ -82,6 +82,10 @@ namespace GhostGolfServer
                 //ToDo send appropriate message
             }
             else if (data is Finish)
+            {
+                //ToDo send appropriate message
+            }
+            else if (data is Info)
             {
                 //ToDo send appropriate message
             }

@@ -5,15 +5,14 @@ using System.Net.Sockets;
 
 namespace GhostGolfClient
 {
-    class Program
+    class Client
     {
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World! Im a client!");
 
             
-            ServerConnection connection = new ServerConnection(new TcpClient("localhost", 5005));
-            connection.sentInit();
+            ServerConnection connection = new ServerConnection( new TcpClient("localhost", 5005), "bob");
         }
     }
 }
