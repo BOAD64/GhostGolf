@@ -1,6 +1,4 @@
-﻿using Newtonsoft.Json;
-using ServerClientConnection;
-using System;
+﻿using System;
 using System.Net.Sockets;
 
 namespace GhostGolfClient
@@ -11,8 +9,10 @@ namespace GhostGolfClient
         {
             Console.WriteLine("Hello World! Im a client!");
 
-            
             ServerConnection connection = new ServerConnection( new TcpClient("localhost", 5005), "bob");
+
+
         }
     }
 }
+

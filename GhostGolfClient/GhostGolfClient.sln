@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GhostGolfServer", "GhostGol
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ServerClientConnection", "ServerClientConnection\ServerClientConnection.shproj", "{F6F73046-5191-4C46-97D1-DE570A62D6E7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientWPF", "ClientWPF\ClientWPF.csproj", "{88479EA4-7E36-4952-8B10-571F26B56223}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		ServerClientConnection\ServerClientConnection.projitems*{8c3fa28a-ce71-4f73-bff9-b89b219992cc}*SharedItemsImports = 5
@@ -28,6 +30,10 @@ Global
 		{8C3FA28A-CE71-4F73-BFF9-B89B219992CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C3FA28A-CE71-4F73-BFF9-B89B219992CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C3FA28A-CE71-4F73-BFF9-B89B219992CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88479EA4-7E36-4952-8B10-571F26B56223}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88479EA4-7E36-4952-8B10-571F26B56223}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88479EA4-7E36-4952-8B10-571F26B56223}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88479EA4-7E36-4952-8B10-571F26B56223}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
