@@ -33,9 +33,6 @@ namespace GhostGolfClient
             xDir = (float)(xDir / force);
             yDir = (float)(yDir / force);
 
-            float[] holePos = hole.getPos();
-            float radius = hole.radius;
-
             await Task.Run(() =>
             {
                 for (int i = 0; i < force; i++)
@@ -55,8 +52,7 @@ namespace GhostGolfClient
                     newPos[0] += yDir;
                     this.ball.setPos(newPos);
 
-                    double distance = Math.Sqrt(Math.Pow(newPos[0] - holePos[0], 2) + Math.Pow(newPos[1] - holePos[1], 2));
-                    if (distance <= radius)
+                    if ((force - i <= 2) && CourseFinished(newPos))
                     {
                         Connection message = new Connection() { name = this.connection.name,
                             data = new Finish() { strokes = this.strokes} };
@@ -72,6 +68,15 @@ namespace GhostGolfClient
                     this.connection.writeMessage(ballPos);
                 }
             });
+        }
+
+        public bool CourseFinished(float[] ballPos)
+        {
+            float radius = hole.radius;
+            float[] holePos = hole.getPos();
+            double distance = Math.Sqrt(Math.Pow(ballPos[0] - holePos[0], 2) + Math.Pow(ballPos[1] - holePos[1], 2));
+
+            return distance <= radius;
         }
     }
 }
