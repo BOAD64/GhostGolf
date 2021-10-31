@@ -29,10 +29,9 @@ namespace ClientWPF
         private Level level;
         private Ball player;
         private Hole hole;
-        private Ball[] otherPlayers;
         private Ellipse canvasBall;
         private Ellipse canvasHole;
-        private Ellipse[] canvasOtherPlayers;
+        private Dictionary<Ball, Ellipse> otherPlayers;
 
         public static SetInfoDelegate setInfoDel;
         public delegate void SetInfoDelegate();
@@ -55,9 +54,9 @@ namespace ClientWPF
             this.level = connectionToData.GetLevel();
             this.player = this.level.ball;
             this.hole = this.level.hole;
-            fillCanvas();
-
             serverConnection.sendInfo();
+            fillCanvas();
+            createGhosts();
             new Thread(update).Start();
         }
 
@@ -137,17 +136,47 @@ namespace ClientWPF
 
                 //update scores
                 this.dispatcher.Invoke(() => SetInfo());
+
+                //update all ghost
+                uppdateGhosts();
             }
         }
 
-        private void addGhost()
+        private void createGhosts ()
         {
-
+            List<Ball> otherplayerBalls = level.opponents;
+            foreach (Ball otherplayer in otherplayerBalls)
+            {
+                otherPlayers.Add(otherplayer, createGhost(otherplayer));
+            }
         }
 
-        private void removeGhost()
+        //todo update the newly added player
+        private void addGhost(Ball otherPlayer)
         {
+            otherPlayers.Add(otherPlayer, createGhost(otherPlayer));
+        }
 
+        private Ellipse createGhost(Ball otherPlayer)
+        {
+            Ellipse otherPlayerEllipse = new Ellipse
+            {
+                Width = otherPlayer.getRadius(),
+                Height = otherPlayer.getRadius(),
+                Fill = new SolidColorBrush(Color.FromRgb((byte)150, (byte)150, (byte)200)),
+            };
+            Canvas.SetLeft(otherPlayerEllipse, otherPlayer.getPos()[0] - (otherPlayer.getRadius() / 2));
+            Canvas.SetTop(otherPlayerEllipse, otherPlayer.getPos()[1] - (otherPlayer.getRadius() / 2));
+            levelCanvas.Children.Add(otherPlayerEllipse);
+            return otherPlayerEllipse;
+        }
+
+        private void uppdateGhosts()
+        {
+            foreach (Ball otherPlayer in otherPlayers.Keys)
+            {
+                Dispatcher.Invoke(() => SetCanvasPos(otherPlayers.GetValueOrDefault(otherPlayer), new float[] { otherPlayer.getPos()[0] - (otherPlayer.getRadius() / 2), otherPlayer.getPos()[1] - (otherPlayer.getRadius() / 2) }));
+            }
         }
     }
 }
