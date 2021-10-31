@@ -22,9 +22,8 @@ namespace GhostGolfServer
             this.listener = new TcpListener(System.Net.IPAddress.Any, 5005);
 
             listener.Start();
+            while (true)
             listener.BeginAcceptTcpClient(new AsyncCallback(OnConnect), null);
-
-            Task.Delay(-1);
         }
 
         private void OnConnect(IAsyncResult ar)

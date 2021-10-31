@@ -10,15 +10,18 @@ namespace ClientWPF
     class ConnectionToData
     {
         private Client client;
+        private ServerConnection serverConnection;
         
         public ConnectionToData()
         {
             client = new Client();
+            serverConnection = client.getConnection();
         }
+
 
         public Level GetLevel()
         {
-            return client.getLevel();
+            return serverConnection.level;
         }
     }
 }

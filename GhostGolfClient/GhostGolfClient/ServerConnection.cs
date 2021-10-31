@@ -9,7 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Sockets;
 using System.Text;
-
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace GhostGolfClient
@@ -20,7 +20,7 @@ namespace GhostGolfClient
         private TcpClient client;
         private ServerClientConnection.Client rw;
         private bool active;
-        private Level level;
+        public Level level { get; }
 
         public ServerConnection(TcpClient client, string name)
         {
@@ -28,6 +28,7 @@ namespace GhostGolfClient
             this.name = name;
             this.rw = new ServerClientConnection.Client(this.client);
             sentInit();
+            new Thread(async e => await Run()).Start();
 
             this.level = new Level(name, this);
         }
@@ -38,7 +39,6 @@ namespace GhostGolfClient
             Connection con = new Connection() { name = this.name, data = initMessage };
             Debug.WriteLine(JsonConvert.SerializeObject(con));
             writeMessage(con);
-            readMessage();
         }
         
         public async Task Run()

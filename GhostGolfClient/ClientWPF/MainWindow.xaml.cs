@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -40,6 +41,8 @@ namespace ClientWPF
             this.player = this.level.ball;
             this.hole = this.level.hole;
             fillCanvas();
+
+            //new Thread(update).Start();
         }
 
         private void fillCanvas ()
@@ -87,12 +90,24 @@ namespace ClientWPF
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            //do the shoot
+            double rotation = (double)rotationSlider.Value;
+            double power = (double)powerSlider.Value / 4;
+            float xDir = (float)(Math.Sin(rotation / 180 * Math.PI) * power);
+            float yDir = (float)(Math.Cos(rotation / 180 * Math.PI) * power); 
+            var task = level.makeMove(xDir, yDir);
+            task.Wait();
+
+            MessageBox.Show("" + player.getPos()[0] + player.getPos()[1]);
         }
 
-        private void Canvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void update()
         {
-            
+            bool running = true;
+            while (running)
+            {
+                Canvas.SetLeft(canvasBall, player.getPos()[0] - (player.getRadius() / 2));
+                Canvas.SetTop(canvasBall, player.getPos()[1] - (player.getRadius() / 2));
+            }
         }
     }
 }

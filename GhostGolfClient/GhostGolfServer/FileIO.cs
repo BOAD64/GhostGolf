@@ -16,7 +16,7 @@ namespace GhostGolfServer
             if (!File.Exists(filePath))
             {
                 StreamWriter writer = File.AppendText(filePath);
-                writer.WriteLine("0 - 1");
+                writer.WriteLine("0 - 0");
                 writer.WriteLine();
                 writer.Close();
             }

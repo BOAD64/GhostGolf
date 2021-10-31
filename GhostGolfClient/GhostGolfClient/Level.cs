@@ -19,22 +19,19 @@ namespace GhostGolfClient
 
         public Level(string name, ServerConnection connection)
         {
-            //this.connection = connection;
+            this.connection = connection;
             this.ball = new Ball(name, 305, 500); //ToDo change values
             this.hole = new Hole(305, 100, 60); //ToDo change values
             opponents = new List<Ball>();
         }
 
-        public async void makeMove(float xDir, float yDir)
+        public async Task makeMove(float xDir, float yDir)
         {
             this.strokes++;
             double force = Math.Sqrt(xDir * xDir + yDir * yDir);
 
             xDir = (float)(xDir / force);
             yDir = (float)(yDir / force);
-
-            float[] holePos = hole.getPos();
-            float radius = hole.radius;
 
             await Task.Run(() =>
             {
@@ -55,8 +52,7 @@ namespace GhostGolfClient
                     newPos[0] += yDir;
                     this.ball.setPos(newPos);
 
-                    double distance = Math.Sqrt(Math.Pow(newPos[0] - holePos[0], 2) + Math.Pow(newPos[1] - holePos[1], 2));
-                    if (distance <= radius)
+                    if ((force - i <= 2) && CourseFinished(newPos))
                     {
                         Connection message = new Connection() { name = this.connection.name,
                             data = new Finish() { strokes = this.strokes} };
@@ -77,6 +73,15 @@ namespace GhostGolfClient
         public int[] getBounds ()
         {
             return bounds;
+        }
+
+        public bool CourseFinished(float[] ballPos)
+        {
+            float radius = hole.radius;
+            float[] holePos = hole.getPos();
+            double distance = Math.Sqrt(Math.Pow(ballPos[0] - holePos[0], 2) + Math.Pow(ballPos[1] - holePos[1], 2));
+
+            return distance <= radius;
         }
     }
 }

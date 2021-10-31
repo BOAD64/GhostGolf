@@ -11,6 +11,10 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ServerClientConnection", "S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientWPF", "ClientWPF\ClientWPF.csproj", "{88479EA4-7E36-4952-8B10-571F26B56223}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GhostGolfServerTest", "GhostGolfServerTest\GhostGolfServerTest.csproj", "{8B399842-3232-48AB-BC2D-10EBA5FFD28D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GhostGolfClientTest", "GhostGolfClientTest\GhostGolfClientTest.csproj", "{64E99EC4-4AE8-4F71-ADDB-1426C3BE23CD}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		ServerClientConnection\ServerClientConnection.projitems*{8c3fa28a-ce71-4f73-bff9-b89b219992cc}*SharedItemsImports = 5
@@ -34,6 +38,14 @@ Global
 		{88479EA4-7E36-4952-8B10-571F26B56223}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88479EA4-7E36-4952-8B10-571F26B56223}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88479EA4-7E36-4952-8B10-571F26B56223}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8B399842-3232-48AB-BC2D-10EBA5FFD28D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B399842-3232-48AB-BC2D-10EBA5FFD28D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B399842-3232-48AB-BC2D-10EBA5FFD28D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B399842-3232-48AB-BC2D-10EBA5FFD28D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64E99EC4-4AE8-4F71-ADDB-1426C3BE23CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64E99EC4-4AE8-4F71-ADDB-1426C3BE23CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64E99EC4-4AE8-4F71-ADDB-1426C3BE23CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64E99EC4-4AE8-4F71-ADDB-1426C3BE23CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
