@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using ServerClientConnection;
 
 namespace ClientWPF
 {
@@ -32,8 +33,13 @@ namespace ClientWPF
         private Ellipse canvasBall;
         private Ellipse canvasHole;
         private Ellipse[] canvasOtherPlayers;
+
+        public static SetInfoDelegate setInfoDel;
+        public delegate void SetInfoDelegate();
+
         public static setPosDelegate SetPos;
         public delegate void setPosDelegate(Ellipse obj, float[] pos);
+
         private Dispatcher dispatcher;
         private ServerConnection serverConnection;
 
@@ -43,13 +49,15 @@ namespace ClientWPF
             InitializeComponent();
             this.dispatcher = Dispatcher.CurrentDispatcher;
             SetPos = SetCanvasPos;
-            ConnectionToData connection = new ConnectionToData();
-            this.serverConnection = connection.serverConnection;
-            this.level = connection.GetLevel();
+            setInfoDel = SetInfo;
+            ConnectionToData connectionToData = new ConnectionToData();
+            this.serverConnection = connectionToData.serverConnection;
+            this.level = connectionToData.GetLevel();
             this.player = this.level.ball;
             this.hole = this.level.hole;
             fillCanvas();
 
+            serverConnection.sendInfo();
             new Thread(update).Start();
         }
 
@@ -102,6 +110,13 @@ namespace ClientWPF
             Canvas.SetTop(obj, pos[1]);
         }
 
+        public void SetInfo()
+        {
+            parField.Text = $"par: {serverConnection.par}";
+            highscoreField.Text = $"highscore: {serverConnection.highscore}";
+            placementField.Text = $"placement: {serverConnection.placement}";
+        }
+
         private void button_Click(object sender, RoutedEventArgs e)
         {
             double rotation = (double)rotationSlider.Value;
@@ -121,7 +136,7 @@ namespace ClientWPF
                 this.dispatcher.Invoke(() => SetCanvasPos(canvasBall, new float[] { player.getPos()[0] - (player.getRadius() / 2), player.getPos()[1] - (player.getRadius() / 2) }));
 
                 //update scores
-                //serverConnection.writeMessage();
+                this.dispatcher.Invoke(() => SetInfo());
             }
         }
 

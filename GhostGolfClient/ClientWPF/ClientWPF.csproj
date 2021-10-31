@@ -10,4 +10,6 @@
     <ProjectReference Include="..\GhostGolfClient\GhostGolfClient.csproj" />
   </ItemGroup>
 
+  <Import Project="..\ServerClientConnection\ServerClientConnection.projitems" Label="Shared" />
+
 </Project>

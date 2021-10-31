@@ -15,7 +15,7 @@ namespace GhostGolfClient
 
         public Client()
         {
-            this.connection = new ServerConnection(new TcpClient("localhost", 5005), "bob");
+            this.connection = new ServerConnection(new TcpClient("localhost", 5005), System.Environment.MachineName);
         }
 
         public ServerConnection getConnection ()

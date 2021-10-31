@@ -15,14 +15,16 @@ namespace GhostGolfClient
         public Ball ball { get; }
         public Hole hole { get; }
         public List<Ball> opponents { get; set; }
-        private readonly int[] bounds = new int[4] { 10, 10, 610, 610 }; //ToDo change values
+        private readonly int[] bounds = new int[4] { 10, 10, 610, 610 }; 
         // bounds: waardes -> x min, y min, x max, y max.
+
+        private readonly float[] startPos = new float[2] { 305, 500 };
 
         public Level(string name, ServerConnection connection)
         {
             this.connection = connection;
-            this.ball = new Ball(name, 305, 500); //ToDo change values
-            this.hole = new Hole(305, 100, 60); //ToDo change values
+            this.ball = new Ball(name, startPos[0], startPos[1]); 
+            this.hole = new Hole(305, 100, 60); 
             opponents = new List<Ball>();
         }
 
@@ -66,6 +68,8 @@ namespace GhostGolfClient
                         data = new Finish() { strokes = this.strokes }
                     };
                     this.connection.writeMessage(message);
+                    this.connection.sendInfo();
+                    this.ball.setPos(startPos);
                     break;
                 }
             }

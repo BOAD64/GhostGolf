@@ -21,6 +21,9 @@ namespace GhostGolfClient
         private ServerClientConnection.Client rw;
         private bool active;
         public Level level { get; }
+        public int par { get; private set; } = 0;
+        public int placement { get; private set; } = 0;
+        public int highscore { get; private set; } = 0;
 
         public ServerConnection(TcpClient client, string name)
         {
@@ -79,7 +82,10 @@ namespace GhostGolfClient
             }
             else if (data is Info)
             {
-                //ToDo react appropriately
+                Info info = (Info)data;
+                par = info.par;
+                placement = info.placement;
+                highscore = info.highscore;
             }
         }
 
@@ -108,6 +114,16 @@ namespace GhostGolfClient
             {
                 Debug.WriteLine(e.Message);
             }
+        }
+
+        public void sendInfo ()
+        {
+            Connection message = new Connection()
+            {
+                name = System.Environment.MachineName,
+                data = new Info { }
+            };
+            writeMessage(message);
         }
     }
 }
