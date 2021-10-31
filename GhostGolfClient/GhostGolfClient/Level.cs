@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using ServerClientConnection;
 
@@ -25,7 +26,7 @@ namespace GhostGolfClient
             opponents = new List<Ball>();
         }
 
-        public async Task makeMove(float xDir, float yDir)
+        public void makeMove(float xDir, float yDir)
         {
             this.strokes++;
             double force = Math.Sqrt(xDir * xDir + yDir * yDir);
@@ -33,44 +34,44 @@ namespace GhostGolfClient
             xDir = (float)(xDir / force);
             yDir = (float)(yDir / force);
 
-            await Task.Run(() =>
+            for (int i = 0; i < force; i++)
             {
-                for (int i = 0; i < force; i++)
+                float[] newPos = this.ball.getPos();
+
+                if (newPos[0] <= bounds[0] || newPos[0] >= bounds[2])
                 {
-                    float[] newPos = this.ball.getPos();
+                    xDir = -xDir;
+                }
+                if (newPos[1] <= bounds[1] || newPos[1] >= bounds[3])
+                {
+                    yDir = -yDir;
+                }
 
-                    if (newPos[0] <= bounds[0] || newPos[0] >= bounds[2])
-                    {
-                        xDir = -xDir;
-                    }
-                    if (newPos[1] <= bounds[1] || newPos[1] >= bounds[3])
-                    {
-                        yDir = -yDir;
-                    }
+                newPos[0] += xDir;
+                newPos[1] += yDir;
+                this.ball.setPos(newPos);
 
-                    newPos[0] += xDir;
-                    newPos[0] += yDir;
-                    this.ball.setPos(newPos);
+                Connection ballPos = new Connection()
+                {
+                    name = this.connection.name,
+                    data = new BallPos() { position = this.ball.getPos(), sender = this.connection.name }
+                };
+                this.connection.writeMessage(ballPos);
 
-                    if ((force - i <= 2) && CourseFinished(newPos))
-                    {
-                        Connection message = new Connection() { name = this.connection.name,
-                            data = new Finish() { strokes = this.strokes} };
-                        this.connection.writeMessage(message);
-                        break;
-                    }
-
-                    Connection ballPos = new Connection()
+                if ((force - i <= 2) && CourseFinished(newPos))
+                {
+                    Connection message = new Connection()
                     {
                         name = this.connection.name,
-                        data = new BallPos() { position = this.ball.getPos(), sender = this.connection.name }
+                        data = new Finish() { strokes = this.strokes }
                     };
-                    this.connection.writeMessage(ballPos);
+                    this.connection.writeMessage(message);
+                    break;
                 }
-            });
+            }
         }
 
-        public int[] getBounds ()
+        public int[] getBounds()
         {
             return bounds;
         }

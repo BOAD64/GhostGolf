@@ -18,7 +18,6 @@ namespace ClientWPF
             serverConnection = client.getConnection();
         }
 
-
         public Level GetLevel()
         {
             return serverConnection.level;

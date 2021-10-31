@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace ClientWPF
 {
@@ -32,17 +33,23 @@ namespace ClientWPF
         private Ellipse canvasBall;
         private Ellipse canvasHole;
         private Ellipse[] canvasOtherPlayers;
+        public static setPosDelegate SetPos;
+        public delegate void setPosDelegate(Ellipse obj, float[] pos);
+        private Dispatcher dispatcher;
 
+        
         public MainWindow()
         {
             InitializeComponent();
+            this.dispatcher = Dispatcher.CurrentDispatcher;
+            SetPos = SetCanvasPos;
             this.connection = new ConnectionToData();
             this.level = connection.GetLevel();
             this.player = this.level.ball;
             this.hole = this.level.hole;
             fillCanvas();
 
-            //new Thread(update).Start();
+            new Thread(update).Start();
         }
 
         private void fillCanvas ()
@@ -88,16 +95,20 @@ namespace ClientWPF
             levelCanvas.Children.Add(canvasHole);
         }
 
+        public void SetCanvasPos(Ellipse obj, float[] pos)
+        {
+            Canvas.SetLeft(obj, pos[0]);
+            Canvas.SetTop(obj, pos[1]);
+        }
+
         private void button_Click(object sender, RoutedEventArgs e)
         {
             double rotation = (double)rotationSlider.Value;
-            double power = (double)powerSlider.Value / 4;
+            double power = (double)powerSlider.Value * 4;
             float xDir = (float)(Math.Sin(rotation / 180 * Math.PI) * power);
             float yDir = (float)(Math.Cos(rotation / 180 * Math.PI) * power); 
-            var task = level.makeMove(xDir, yDir);
-            task.Wait();
-
-            MessageBox.Show("" + player.getPos()[0] + player.getPos()[1]);
+            level.makeMove(xDir, yDir);
+            //MessageBox.Show("xpos: " + player.getPos()[0] + " ypos: " + player.getPos()[1]);
         }
 
         private void update()
@@ -105,9 +116,18 @@ namespace ClientWPF
             bool running = true;
             while (running)
             {
-                Canvas.SetLeft(canvasBall, player.getPos()[0] - (player.getRadius() / 2));
-                Canvas.SetTop(canvasBall, player.getPos()[1] - (player.getRadius() / 2));
+                this.dispatcher.Invoke(() => SetCanvasPos(canvasBall, new float[] { player.getPos()[0] - (player.getRadius() / 2), player.getPos()[1] - (player.getRadius() / 2) }));
             }
+        }
+
+        private void addGhost()
+        {
+
+        }
+
+        private void removeGhost()
+        {
+
         }
     }
 }
