@@ -25,7 +25,6 @@ namespace ClientWPF
     {
 
         private Brush costomCollor;
-        private ConnectionToData connection;
         private Level level;
         private Ball player;
         private Hole hole;
@@ -36,6 +35,7 @@ namespace ClientWPF
         public static setPosDelegate SetPos;
         public delegate void setPosDelegate(Ellipse obj, float[] pos);
         private Dispatcher dispatcher;
+        private ServerConnection serverConnection;
 
         
         public MainWindow()
@@ -43,7 +43,8 @@ namespace ClientWPF
             InitializeComponent();
             this.dispatcher = Dispatcher.CurrentDispatcher;
             SetPos = SetCanvasPos;
-            this.connection = new ConnectionToData();
+            ConnectionToData connection = new ConnectionToData();
+            this.serverConnection = connection.serverConnection;
             this.level = connection.GetLevel();
             this.player = this.level.ball;
             this.hole = this.level.hole;
@@ -116,7 +117,11 @@ namespace ClientWPF
             bool running = true;
             while (running)
             {
+                //update own position
                 this.dispatcher.Invoke(() => SetCanvasPos(canvasBall, new float[] { player.getPos()[0] - (player.getRadius() / 2), player.getPos()[1] - (player.getRadius() / 2) }));
+
+                //update scores
+                //serverConnection.writeMessage();
             }
         }
 

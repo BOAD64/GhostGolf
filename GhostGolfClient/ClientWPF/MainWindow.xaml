@@ -12,8 +12,29 @@
             <RowDefinition Height="10*"/>
         </Grid.RowDefinitions>
 
-        <Canvas Grid.Row="0" x:Name="levelCanvas" Background="LightGray"></Canvas>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="85*" />
+                <ColumnDefinition Width="15*" />
+            </Grid.ColumnDefinitions>
+            
+            <Canvas Grid.Column="0" x:Name="levelCanvas" Background="LightGray"></Canvas>
 
+            <Grid Grid.Column="1" Background="LightGray">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="10*"/>
+                    <RowDefinition Height="70*"/>
+                </Grid.RowDefinitions>
+
+                <TextBox Grid.Row="0" x:Name="parField" IsReadOnly="True" Text="par: "/>
+                <TextBox Grid.Row="1" x:Name="highscoreField" IsReadOnly="True" Text="highscore: "/>
+                <TextBox Grid.Row="2" x:Name="placementField" IsReadOnly="True" Text="placement: "/>
+
+            </Grid>
+        </Grid>
+        
         <Grid  Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="30*" />

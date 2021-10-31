@@ -10,7 +10,7 @@ namespace ClientWPF
     class ConnectionToData
     {
         private Client client;
-        private ServerConnection serverConnection;
+        public ServerConnection serverConnection { get; }
         
         public ConnectionToData()
         {
