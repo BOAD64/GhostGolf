@@ -3,16 +3,24 @@ using System.Net.Sockets;
 
 namespace GhostGolfClient
 {
-    class Client
+    public class Client
     {
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World! Im a client!");
+            new Client();
+        }
 
-            ServerConnection connection = new ServerConnection( new TcpClient("localhost", 5005), "bob");
+        private ServerConnection connection;
 
+        public Client()
+        {
+            //connection = new ServerConnection(new TcpClient("localhost", 5005), "bob");
+        }
 
+        public string getTest()
+        {
+            return "hello bro I work";
         }
     }
 }
-

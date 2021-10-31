@@ -22,15 +22,18 @@ namespace ClientWPF
     {
 
         Brush costomCollor;
-        
+        ConnectionToData connection;
+
+
         public MainWindow()
         {
             InitializeComponent();
+            connection = new ConnectionToData();
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("HI");
+            MessageBox.Show(connection.getTest());
         }
 
         private void Canvas_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
