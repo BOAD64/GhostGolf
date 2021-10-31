@@ -27,8 +27,10 @@ namespace ClientWPF
         private Level level;
         private Ball player;
         private Hole hole;
+        private Ball[] otherPlayers;
         private Ellipse canvasBall;
         private Ellipse canvasHole;
+        private Ellipse[] canvasOtherPlayers;
 
         public MainWindow()
         {
@@ -93,28 +95,4 @@ namespace ClientWPF
             
         }
     }
-
-    /*if (e.OriginalSource is Rectangle)
-            {
-                Rectangle r = (Rectangle)e.OriginalSource;
-                canvasName.Children.Remove(r);
-            }
-            else
-            {
-                costomCollor = new SolidColorBrush(Color.FromRgb((byte)100, (byte)150, (byte)50));
-
-                Rectangle rectangle = new Rectangle
-                {
-                    Width = 20,
-                    Height = 20,
-                    Fill = costomCollor,
-                    StrokeThickness = 3,
-                    Stroke = Brushes.Black
-                };
-
-                Canvas.SetLeft(rectangle, Mouse.GetPosition(canvasName).X);
-                Canvas.SetTop(rectangle, Mouse.GetPosition(canvasName).Y);
-
-                canvasName.Children.Add(rectangle);
-            }*/
 }
