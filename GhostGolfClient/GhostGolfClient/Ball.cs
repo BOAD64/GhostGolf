@@ -12,7 +12,7 @@ namespace GhostGolfClient
             owner = name;
             pos[0] = x;
             pos[1] = y;
-            this.radius = 1.5f;
+            this.radius = 40;
         }
 
         public float[] getPos()
@@ -23,6 +23,11 @@ namespace GhostGolfClient
         public void setPos(float[] pos)
         {
             this.pos = pos;
+        }
+
+        public float getRadius()
+        {
+            return this.radius;
         }
     }
 }

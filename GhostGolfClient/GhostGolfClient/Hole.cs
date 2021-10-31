@@ -17,5 +17,10 @@ namespace GhostGolfClient
         {
             return this.pos;
         }
+
+        public float getRadius()
+        {
+            return radius;
+        }
     }
 }

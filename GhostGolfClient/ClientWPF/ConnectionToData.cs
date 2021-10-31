@@ -16,9 +16,9 @@ namespace ClientWPF
             client = new Client();
         }
 
-        public string getTest()
+        public Level GetLevel()
         {
-            return client.getTest();
+            return client.getLevel();
         }
     }
 }

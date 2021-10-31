@@ -12,15 +12,17 @@ namespace GhostGolfClient
         }
 
         private ServerConnection connection;
+        private Level level;
 
         public Client()
         {
-            //connection = new ServerConnection(new TcpClient("localhost", 5005), "bob");
+            //this.connection = new ServerConnection(new TcpClient("localhost", 5005), "bob");
+            this.level = new Level("level 1", null);
         }
 
-        public string getTest()
+        public Level getLevel ()
         {
-            return "hello bro I work";
+            return this.level;
         }
     }
 }
