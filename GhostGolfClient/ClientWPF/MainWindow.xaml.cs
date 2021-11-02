@@ -175,7 +175,10 @@ namespace ClientWPF
         {
             foreach (Ball otherPlayer in otherPlayers.Keys)
             {
-                Dispatcher.Invoke(() => SetCanvasPos(otherPlayers.GetValueOrDefault(otherPlayer), new float[] { otherPlayer.getPos()[0] - (otherPlayer.getRadius() / 2), otherPlayer.getPos()[1] - (otherPlayer.getRadius() / 2) }));
+                if (otherPlayer != null)
+                {
+                    Dispatcher.Invoke(() => SetCanvasPos(otherPlayers.GetValueOrDefault(otherPlayer), new float[] { otherPlayer.getPos()[0] - (otherPlayer.getRadius() / 2), otherPlayer.getPos()[1] - (otherPlayer.getRadius() / 2) }));
+                }
             }
         }
     }
