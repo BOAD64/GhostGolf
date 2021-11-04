@@ -42,19 +42,24 @@ namespace ServerClientConnection
         public async Task<string> Read()
         {
             byte[] length = new byte[4];
-            this.stream.Read(length, 0, 4);
+            await this.stream.ReadAsync(length, 0, 4);
+            Console.WriteLine($"lengte bericht is: {length}");
 
             int size = BitConverter.ToInt32(length);
 
             byte[] received = new byte[size];
 
+
+            //this loop never ends
             int bytesRead = 0;
             while (bytesRead < size)
             {
+                Console.WriteLine($"bytes: {bytesRead} \nsize: {size}");
                 int read = await this.stream.ReadAsync(received, bytesRead, received.Length - bytesRead);
                 bytesRead += read;
             }
 
+            //this return never gets reached
             return Encoding.ASCII.GetString(received);
         }
 

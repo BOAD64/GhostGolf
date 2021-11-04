@@ -91,6 +91,7 @@ namespace GhostGolfClient
 
         public void writeMessage(Connection message)
         {
+            Debug.WriteLine($"message sent: {message}");
             var stream = new StreamWriter(client.GetStream());
             try
             {

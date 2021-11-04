@@ -33,6 +33,8 @@ namespace GhostGolfServer
             Connection jsonObject = JsonConvert.DeserializeObject<Connection>(message);
             string name = jsonObject.name;
 
+            Console.WriteLine(name);
+
             if (!(jsonObject.data is Init))
             {
                 disconnect();
@@ -56,13 +58,16 @@ namespace GhostGolfServer
         private async void Run()
         {
             this.active = true;
+            Console.WriteLine("is running 1");
             this.Name = await getName();
-            
+            Console.WriteLine("is running 2");
+
             while (active)
             {
                 try
                 {
                     string result = await Client.Read();
+                    Console.WriteLine("message recieved");
                     Parse(result);
                 }
                 catch (Exception e)
@@ -80,11 +85,13 @@ namespace GhostGolfServer
 
             if (data is BallPos)
             {
+                Console.WriteLine($"DEBUG = player: {message.name} has shot ball to: {((BallPos)data).position}");
                 message.name = "all";
                 this.server.send(message, this);
             }
             else if (data is Finish)
             {
+                Console.WriteLine($"DEBUG = player: {message.name} has finnished, strokes: {((Finish)data).strokes}");
                 this.fileIO.UpdatePar(((Finish)data).strokes);
                 if (!this.fileIO.TryUpdateHighscore(this.Name, ((Finish)data).strokes))
                 {
