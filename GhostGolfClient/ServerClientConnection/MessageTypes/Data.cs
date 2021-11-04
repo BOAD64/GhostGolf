@@ -4,7 +4,8 @@ using System.Text;
 
 namespace ServerClientConnection.MessageTypes
 {
-    class Data
+    public class Data
     {
+
     }
 }

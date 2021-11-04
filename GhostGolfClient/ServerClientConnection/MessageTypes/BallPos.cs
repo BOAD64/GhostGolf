@@ -1,10 +1,13 @@
-﻿using System;
+﻿using ServerClientConnection.MessageTypes;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace ServerClientConnection
 {
-    class BallPos
+    public class BallPos : Data
     {
+        public float[] position { get; set; }
+        public string sender { get; set; }
     }
 }

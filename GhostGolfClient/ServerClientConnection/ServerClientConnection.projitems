@@ -9,6 +9,12 @@
     <Import_RootNamespace>ServerClientConnection</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)MessageTypes\BallPos.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Connection.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MessageTypes\Data.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MessageTypes\Finish.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MessageTypes\Info.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)MessageTypes\Init.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Client.cs" />
   </ItemGroup>
 </Project>

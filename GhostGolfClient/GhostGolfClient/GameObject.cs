@@ -1,10 +1,8 @@
 ﻿using System;
 namespace GhostGolfClient
 {
-    public class GameObject
+    public interface GameObject
     {
-        public GameObject()
-        {
-        }
+        public float[] getPos();
     }
 }
