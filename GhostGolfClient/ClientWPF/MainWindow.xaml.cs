@@ -145,6 +145,7 @@ namespace ClientWPF
         private void createGhosts ()
         {
             List<Ball> otherplayerBalls = level.opponents;
+            otherPlayers = new Dictionary<Ball, Ellipse>();
             foreach (Ball otherplayer in otherplayerBalls)
             {
                 otherPlayers.Add(otherplayer, createGhost(otherplayer));
@@ -173,12 +174,14 @@ namespace ClientWPF
 
         private void uppdateGhosts()
         {
-            foreach (Ball otherPlayer in otherPlayers.Keys)
+            if (otherPlayers != null)
             {
-                if (otherPlayer != null)
-                {
+                foreach (Ball otherPlayer in otherPlayers.Keys)
+            {
+                
                     Dispatcher.Invoke(() => SetCanvasPos(otherPlayers.GetValueOrDefault(otherPlayer), new float[] { otherPlayer.getPos()[0] - (otherPlayer.getRadius() / 2), otherPlayer.getPos()[1] - (otherPlayer.getRadius() / 2) }));
-                }
+                
+            }
             }
         }
     }
